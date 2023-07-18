@@ -14,10 +14,14 @@ while True:
         with conn:
             print(f"Connected by {addr}.")
             while True:
-                data = conn.recv(1024)
-                if not data:
-                    break
-                data = data.decode("utf-8").rstrip()
-                print(f"{addr} --> {data}")
-                print(f"{(HOST, PORT)} --> {data[::-1]}")
-                conn.sendall((data[::-1] + "\n").encode())
+                try:
+                    data = conn.recv(1024)
+                    if not data:
+                        break
+                    data = data.decode("utf-8").rstrip()
+                    print(f"{addr} --> {data}")
+                    print(f"{(HOST, PORT)} --> {data[::-1]}")
+                    conn.sendall((data[::-1] + "\n").encode())
+                except:
+                    print("Client disconnect...")
+                    continue
