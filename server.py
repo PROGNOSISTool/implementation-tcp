@@ -8,7 +8,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         while True:
             self.data = self.request.recv(1024).strip()
-            self.request.send(self.data[::-1])
+            self.request.sendall(self.data[::-1])
 
 if __name__ == "__main__":
     server = socketserver.ThreadingTCPServer((HOST, PORT), MyTCPHandler)
